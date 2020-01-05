@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+dir=/tmp/anki
+
+deploy() {
+    cd /tmp
+    url=https://apps.ankiweb.net/
+    path=$(curl -Ls $url | grep -Eo '/downloads/current/anki-[0-9.]+-linux-amd64.tar.bz2')
+    curl -LO "$url$path"
+    fname="$(basename $path)"
+    tar -xvf "$fname"
+    ln -sf anki-*-linux-amd64 anki
+}
+
+if [[ "$1" == "deploy-only" ]]; then
+    deploy
+    exit
+fi
+
+if [[ ! -x $dir/bin/anki ]]; then
+    if [ -t 1 ]; then
+        deploy
+    else
+        alacritty --command "${BASH_SOURCE[0]}" deploy-only
+    fi
+fi
+
+$dir/bin/anki

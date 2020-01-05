@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+if [[ ! -x /tmp/node_modules/.bin/peerflix ]]; then
+    cd /tmp
+    npm install peerflix
+fi
+
+/tmp/node_modules/.bin/peerflix "$@"
