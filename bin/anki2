@@ -5,9 +5,9 @@ dir=/tmp/anki
 deploy() {
     cd /tmp
     url=https://apps.ankiweb.net/
-    path=$(curl -Ls $url | grep -Eo '/downloads/current/anki-[0-9.]+-linux-amd64.tar.bz2')
-    curl -LO "$url$path"
-    fname="$(basename $path)"
+    url2=$(curl -Ls $url | grep -Eo 'https://github.com/.*?/anki-[0-9.]+-linux-amd64.tar.bz2' | head)
+    curl -LO "$url2"
+    fname="$(basename $url2)"
     tar -xvf "$fname"
     ln -sf anki-*-linux-amd64 anki
 }
