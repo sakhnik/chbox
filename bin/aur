@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+export XDG_CACHE_HOME=/tmp/aurutils-cache
+/usr/bin/aur "$@"
