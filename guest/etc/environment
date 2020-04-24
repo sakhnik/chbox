@@ -1,0 +1,8 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+
+DISPLAY=:0
+PULSE_SERVER=unix:/run/user/host/pulse/native
