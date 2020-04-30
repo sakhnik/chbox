@@ -5,7 +5,7 @@ dir=/tmp/anki
 deploy() {
     cd /tmp
     url=https://apps.ankiweb.net/
-    url2=$(curl -Ls $url | grep -Eo 'https://github.com/.*?/anki-[0-9.]+-linux-amd64.tar.bz2' | head)
+    url2=$(curl -Ls $url | grep -Eo 'https://github.com/.*?/anki-[0-9.]+-linux-amd64.tar.bz2' | head -1)
     curl -LO "$url2"
     fname="$(basename $url2)"
     tar -xvf "$fname"
@@ -25,4 +25,4 @@ if [[ ! -x $dir/bin/anki ]]; then
     fi
 fi
 
-$dir/bin/anki
+$dir/bin/anki -platform wayland-egl
