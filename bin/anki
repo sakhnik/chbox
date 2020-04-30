@@ -1,1 +1,28 @@
-run-in-archbox.sh
+#!/bin/bash -e
+
+dir=/tmp/anki
+
+deploy() {
+    cd /tmp
+    url=https://apps.ankiweb.net/
+    url2=$(curl -Ls $url | grep -Eo 'https://github.com/.*?/anki-[0-9.]+-linux-amd64.tar.bz2' | head)
+    curl -LO "$url2"
+    fname="$(basename $url2)"
+    tar -xvf "$fname"
+    ln -sf anki-*-linux-amd64 anki
+}
+
+if [[ "$1" == "deploy-only" ]]; then
+    deploy
+    exit
+fi
+
+if [[ ! -x $dir/bin/anki ]]; then
+    if [ -t 1 ]; then
+        deploy
+    else
+        alacritty --command "${BASH_SOURCE[0]}" deploy-only
+    fi
+fi
+
+$dir/bin/anki
