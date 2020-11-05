@@ -6,12 +6,11 @@ Environment=DISPLAY=:0
 
 [Files]
 Bind=/home/sakhnik
-Bind=/tmp/.X11-unix
+BindReadOnly=/tmp/.X11-unix
 Bind=/home/sakhnik/.Xauthority
 Bind=/dev/dri
 Bind=/dev/shm
 Bind=/dev/input
-#Bind=/run/user/1000/pulse:/run/user/host/pulse
 Bind=/dev/snd
 Bind=/dev/fuse
 Bind=/media/sakhnik
