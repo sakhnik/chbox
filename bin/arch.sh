@@ -1,15 +1,17 @@
 #!/bin/bash -ex
 
 
-PSERVER=/tmp/pulse-host/$USER
+pserver=/tmp/pulse-host/$USER
+machine=$(basename ${BASH_SOURCE[0]})
+machine=${machine%.sh}
 
-if ! (machinectl -q shell $USER@arch /usr/bin/mount | grep -q $PSERVER); then
+if ! (machinectl -q shell $USER@$machine /usr/bin/mount | grep -q $pserver); then
     # Allow Arch accessing pulseaudio
-    machinectl -q shell $USER@arch /usr/bin/mkdir -p $PSERVER
-    machinectl bind --read-only arch /run/user/$UID/pulse $PSERVER
+    machinectl -q shell $USER@$machine /usr/bin/mkdir -p $pserver
+    machinectl bind --read-only $machine /run/user/$UID/pulse $pserver
 fi
 
 machinectl -q shell \
     --setenv=DISPLAY=$DISPLAY \
-    --setenv=PULSE_SERVER=unix:$PSERVER/native \
-    $USER@arch "$@"
+    --setenv=PULSE_SERVER=unix:$pserver/native \
+    $USER@$machine "$@"
