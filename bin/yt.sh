@@ -6,9 +6,9 @@ runVlc()
 $1
 END
     if [[ "${#lines[@]}" -gt 2 ]]; then
-        vlc --video-title "${lines[0]}" --no-video-title-show "${lines[1]}" --input-slave "${lines[2]}"
+        vlc --meta-title "${lines[0]}" "${lines[1]}" --input-slave "${lines[2]}"
     else
-        vlc --video-title "${lines[0]}" --no-video-title-show "${lines[1]}"
+        vlc --meta-title "${lines[0]}" "${lines[1]}"
     fi
 }
 
