@@ -11,6 +11,9 @@ if ! (machinectl -q shell $USER@$machine /usr/bin/mount | grep -q $pserver); the
     machinectl bind --read-only $machine /run/user/$UID/pulse $pserver
 fi
 
+# Allow local connections from the container to the host X11 server
+xhost +local:
+
 machinectl -q shell \
     --setenv=DISPLAY=$DISPLAY \
     --setenv=PULSE_SERVER=unix:$pserver/native \
