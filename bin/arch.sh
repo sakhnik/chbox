@@ -12,7 +12,7 @@ if ! (machinectl -q shell $USER@$machine /usr/bin/mount | grep -q $pserver); the
 fi
 
 # Allow local connections from the container to the host X11 server
-xhost +local:
+xhost +local: || true
 
 machinectl -q shell \
     --setenv=DISPLAY=$DISPLAY \
