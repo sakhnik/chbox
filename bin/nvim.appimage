@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+if [[ ! -f /tmp/nvim.appimage ]]; then
+    cd /tmp
+    wget -c https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+fi
+
+/tmp/nvim.appimage "$@"
