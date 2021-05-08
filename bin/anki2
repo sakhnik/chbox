@@ -4,12 +4,12 @@ dir=/tmp/anki
 
 deploy() {
     cd /tmp
-    url=https://apps.ankiweb.net/
-    url2=$(curl -Ls $url | grep -Eo 'https://github.com/.*?/anki-[0-9.]+-linux-amd64.tar.bz2' | head -1)
-    wget -c "$url2"
-    fname="$(basename $url2)"
+    url=https://github.com
+    path=$(curl -Ls "$url/ankitects/anki/releases/latest" | grep -Po '(?<=href=").*-linux.tar.bz2' | head -1)
+    wget -c "$url$path"
+    fname="$(basename $path)"
     tar -xvf "$fname"
-    ln -sf anki-*-linux-amd64 anki
+    ln -sf anki-*-linux anki
 }
 
 if [[ "$1" == "deploy-only" ]]; then
@@ -25,4 +25,4 @@ if [[ ! -x $dir/bin/anki ]]; then
     fi
 fi
 
-$dir/bin/anki -platform wayland-egl
+$dir/bin/Anki -platform wayland-egl
