@@ -1,9 +1,10 @@
 #!/bin/bash -e
 
-if [[ ! -f /tmp/nvim.appimage ]]; then
-    cd /tmp
-    wget -c https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    chmod +x /tmp/nvim.appimage
+fname=/tmp/nvim.appimage
+
+if [[ ! -f $fname ]]; then
+    wget -c -O $fname https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    chmod +x $fname
 fi
 
-/tmp/nvim.appimage "$@"
+$fname "$@"
