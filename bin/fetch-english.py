@@ -20,7 +20,8 @@ headers = {
 
 response = requests.get(url, headers=headers)
 soup = BeautifulSoup(response.text, 'html.parser')
-for t in soup.find_all('span', 'phon'):
-    print(t.text)
-for t in soup.find_all('div', 'pron-uk'):
-    print(t.get('data-src-ogg', t.get('data-src-mp3')))
+for phon_br in soup.find_all('div', 'phons_br'):
+    for t in phon_br.find_all('span', 'phon'):
+        print(t.text)
+    for t in phon_br.find_all('div', 'pron-uk'):
+        print(t.get('data-src-ogg', t.get('data-src-mp3')))
