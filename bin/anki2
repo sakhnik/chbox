@@ -1,15 +1,16 @@
 #!/bin/bash -e
 
 dir=/tmp/anki
+suffix=linux-qt5
 
 deploy() {
     cd /tmp
     url=https://github.com
-    path=$(curl -Ls "$url/ankitects/anki/releases/latest" | grep -Po '(?<=href=").*-linux.tar.bz2' | head -1)
+    path=$(curl -Ls "$url/ankitects/anki/releases/latest" | grep -Po "(?<=href=\").*-${suffix}.tar.zst" | head -1)
     wget -c "$url$path"
     fname="$(basename $path)"
     tar -xvf "$fname"
-    ln -sf anki-*-linux anki
+    ln -sf anki-*-${suffix} anki
 }
 
 if [[ "$1" == "deploy-only" ]]; then
@@ -25,4 +26,4 @@ if [[ ! -x $dir/bin/anki ]]; then
     fi
 fi
 
-$dir/bin/Anki -platform wayland-egl
+$dir/anki -platform wayland-egl
