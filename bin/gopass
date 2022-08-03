@@ -5,7 +5,7 @@ cd /tmp/gopass
 
 if [[ ! -x gopass ]]; then
     url=$(curl -Ls 'https://github.com/gopasspw/gopass/releases/latest' | \
-        grep -Po '(?<=href=").+?linux-amd64.tar.gz')
+        grep -Po -m 1 '(?<=href=").+?linux-amd64.tar.gz')
     wget -qc "http://github.com$url"
 
     fname=$(basename $url)
