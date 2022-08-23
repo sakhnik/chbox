@@ -39,7 +39,7 @@ def Fetch(word):
     return defs
 
 
-def FillTheGrid(grid, word):
+def FillTheGrid(grid, word, on_click):
     while True:
         if grid.get_child_at(0, 1) is not None:
             grid.remove_row(1)
@@ -51,8 +51,7 @@ def FillTheGrid(grid, word):
         for c, d in enumerate(row):
             btn = Gtk.Button(label=d)
             grid.attach(btn, c, r, 1, 1)
-            btn.connect('clicked',
-                        lambda x: x.get_clipboard().set(x.get_label()))
+            btn.connect('clicked', on_click)
 
 
 def on_activate(app):
@@ -67,7 +66,12 @@ def on_activate(app):
     box.append(entry)
     box.append(grid)
 
-    entry.connect('activate', lambda x: FillTheGrid(grid, x.get_text()))
+    def OnClick(x):
+        x.get_clipboard().set(x.get_label())
+        entry.grab_focus()
+
+    entry.connect('activate',
+                  lambda x: FillTheGrid(grid, x.get_text(), OnClick))
 
     win.set_child(box)
     win.present()
