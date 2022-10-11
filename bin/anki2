@@ -5,9 +5,11 @@ suffix=linux-qt5
 
 deploy() {
     cd /tmp
-    url=https://github.com
-    path=$(curl -Ls "$url/ankitects/anki/releases/latest" | grep -Po "(?<=href=\").*-${suffix}.tar.zst" | head -1)
-    wget -c "$url$path"
+    assets_url=$(curl -Ls "https://github.com/ankitects/anki/releases/latest" | \
+	    grep -Po -m 1 'https://.+?expanded_assets/[^"]+')
+    path=$(curl -Ls "$assets_url" | \
+	    grep -Po "(?<=href=\").*-${suffix}.tar.zst" | head -1)
+    wget -c "https://github.com$path"
     fname="$(basename $path)"
     tar -xvf "$fname"
     ln -sf anki-*-${suffix} anki
