@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 dir=/tmp/anki
-suffix=linux-qt5
+suffix=linux-qt6
 
 deploy() {
     cd /tmp
@@ -28,4 +28,4 @@ if [[ ! -x $dir/bin/anki ]]; then
     fi
 fi
 
-$dir/anki -platform wayland-egl
+ANKI_WAYLAND=1 $dir/anki
