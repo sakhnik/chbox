@@ -2,7 +2,7 @@
 
 if [[ -f /tmp/nvim.appimage ]]; then
     # wget -c https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    /tmp/nvim.appimage "$@"
+    exec /tmp/nvim.appimage "$@"
 else
-    /usr/bin/nvim "$@"
+    exec /usr/bin/nvim "$@"
 fi
