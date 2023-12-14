@@ -44,8 +44,10 @@ def Fetch(word):
         row = []
         for t in phon_br.find_all('span', 'phon'):
             row.append(t.text)
+            break
         for t in phon_br.find_all('div', 'pron-uk'):
             row.append(t.get('data-src-ogg', t.get('data-src-mp3')))
+            break
         defs.append(row)
     return defs
 
