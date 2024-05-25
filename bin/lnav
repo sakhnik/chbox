@@ -6,12 +6,12 @@ if [[ ! -x lnav ]]; then
     assets_url=$(curl -Ls 'https://github.com/tstack/lnav/releases/latest' | \
         grep -Po -m 1 'https://.+?expanded_assets/[^"]+')
     url=$(curl -Ls "$assets_url" | \
-        grep -Po -m 1 '(?<=href=").+?x86_64-linux-musl.zip')
+        grep -Po -m 1 '(?<=href=").+?-linux-musl-x86_64.zip')
     wget -qc "http://github.com$url"
 
     fname=$(basename $url)
     unzip $fname
-    fname=${fname%-x86_64-linux-musl.zip}
+    fname=${fname%-linux-musl-x86_64.zip}
     ln $fname/lnav
 fi
 
